@@ -12,14 +12,8 @@ com/google/mlkit/vision/demo/BitmapUtils.java
  com.google.mlkit.vision.demo.BitmapUtils
 com/google/mlkit/vision/demo/BuildConfig.java
  com.google.mlkit.vision.demo.BuildConfig
-com/google/mlkit/vision/demo/java/segmenter/SegmentationGraphic.java
- com.google.mlkit.vision.demo.java.segmenter.SegmentationGraphic
 com/google/mlkit/vision/demo/VisionImageProcessor.java
  com.google.mlkit.vision.demo.VisionImageProcessor
-com/google/mlkit/vision/demo/java/segmenter/SegmenterProcessor.java
- com.google.mlkit.vision.demo.java.segmenter.SegmenterProcessor
-com/google/mlkit/vision/demo/java/CameraXLivePreviewActivity.java
- com.google.mlkit.vision.demo.java.CameraXLivePreviewActivity
 com/google/mlkit/vision/demo/FrameMetadata.java
  com.google.mlkit.vision.demo.FrameMetadata
  com.google.mlkit.vision.demo.FrameMetadata$1
@@ -39,8 +33,6 @@ com/google/mlkit/vision/demo/CameraSource.java
  com.google.mlkit.vision.demo.CameraSource$CameraPreviewCallback
  com.google.mlkit.vision.demo.CameraSource$FrameProcessingRunnable
  com.google.mlkit.vision.demo.CameraSource$SizePair
-com/google/mlkit/vision/demo/preference/FaceDetectionUtils.java
- com.google.mlkit.vision.demo.preference.FaceDetectionUtils
 com/google/mlkit/vision/demo/preference/SettingsActivity.java
  com.google.mlkit.vision.demo.preference.SettingsActivity
  com.google.mlkit.vision.demo.preference.SettingsActivity$LaunchSource
@@ -52,6 +44,5 @@ com/google/mlkit/vision/demo/CameraSourcePreview.java
  com.google.mlkit.vision.demo.CameraSourcePreview
  com.google.mlkit.vision.demo.CameraSourcePreview$1
  com.google.mlkit.vision.demo.CameraSourcePreview$SurfaceCallback
-com/google/mlkit/vision/demo/java/VisionProcessorBase.java
- com.google.mlkit.vision.demo.java.VisionProcessorBase
- com.google.mlkit.vision.demo.java.VisionProcessorBase$1
+com/google/mlkit/vision/demo/preference/FaceDetectionUtils.java
+ com.google.mlkit.vision.demo.preference.FaceDetectionUtils
