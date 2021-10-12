@@ -4,8 +4,6 @@ com/google/mlkit/vision/demo/preference/LivePreviewPreferenceFragment.java
  com.google.mlkit.vision.demo.preference.LivePreviewPreferenceFragment
 com/google/mlkit/vision/demo/preference/PreferenceUtils.java
  com.google.mlkit.vision.demo.preference.PreferenceUtils
-com/google/mlkit/vision/demo/preference/StillImagePreferenceFragment.java
- com.google.mlkit.vision.demo.preference.StillImagePreferenceFragment
 com/google/mlkit/vision/demo/TemperatureMonitor.java
  com.google.mlkit.vision.demo.TemperatureMonitor
 com/google/mlkit/vision/demo/BitmapUtils.java
@@ -44,5 +42,3 @@ com/google/mlkit/vision/demo/CameraSourcePreview.java
  com.google.mlkit.vision.demo.CameraSourcePreview
  com.google.mlkit.vision.demo.CameraSourcePreview$1
  com.google.mlkit.vision.demo.CameraSourcePreview$SurfaceCallback
-com/google/mlkit/vision/demo/preference/FaceDetectionUtils.java
- com.google.mlkit.vision.demo.preference.FaceDetectionUtils
