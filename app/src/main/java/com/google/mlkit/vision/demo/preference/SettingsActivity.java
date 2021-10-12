@@ -34,9 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
   public enum LaunchSource {
     CAMERAX_LIVE_PREVIEW(
         R.string.pref_screen_title_camerax_live_preview,
-        CameraXLivePreviewPreferenceFragment.class),
-    CAMERAXSOURCE_DEMO(
-        R.string.pref_screen_title_cameraxsource_demo, CameraXSourceDemoPreferenceFragment.class);
+        CameraXLivePreviewPreferenceFragment.class);
 
     private final int titleResId;
     private final Class<? extends PreferenceFragment> prefFragmentClass;

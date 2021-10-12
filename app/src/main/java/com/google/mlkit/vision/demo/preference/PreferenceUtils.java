@@ -26,22 +26,12 @@ import androidx.annotation.StringRes;
 import androidx.camera.core.CameraSelector;
 import com.google.android.gms.common.images.Size;
 import com.google.common.base.Preconditions;
-import com.google.mlkit.common.model.LocalModel;
 import com.google.mlkit.vision.demo.CameraSource;
 import com.google.mlkit.vision.demo.CameraSource.SizePair;
 import com.google.mlkit.vision.demo.R;
-import com.google.mlkit.vision.face.FaceDetectorOptions;
-import com.google.mlkit.vision.objects.ObjectDetectorOptionsBase.DetectorMode;
-import com.google.mlkit.vision.objects.custom.CustomObjectDetectorOptions;
-import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions;
-import com.google.mlkit.vision.pose.PoseDetectorOptionsBase;
-import com.google.mlkit.vision.pose.accurate.AccuratePoseDetectorOptions;
-import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions;
 
 /** Utility class to retrieve shared preferences. */
 public class PreferenceUtils {
-
-  private static final int POSE_DETECTOR_PERFORMANCE_MODE_FAST = 1;
 
   static void saveString(Context context, @StringRes int prefKeyId, @Nullable String value) {
     PreferenceManager.getDefaultSharedPreferences(context)
@@ -110,12 +100,6 @@ public class PreferenceUtils {
    * storing its entry value as string type, so we need to retrieve as string and then convert to
    * integer.
    */
-  private static int getModeTypePreferenceValue(
-      Context context, @StringRes int prefKeyResId, int defaultValue) {
-    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-    String prefKey = context.getString(prefKeyResId);
-    return Integer.parseInt(sharedPreferences.getString(prefKey, String.valueOf(defaultValue)));
-  }
 
   public static boolean isCameraLiveViewportEnabled(Context context) {
     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
