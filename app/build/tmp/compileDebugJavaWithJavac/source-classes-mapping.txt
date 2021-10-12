@@ -39,9 +39,8 @@ com/google/mlkit/vision/demo/CameraSource.java
  com.google.mlkit.vision.demo.CameraSource$CameraPreviewCallback
  com.google.mlkit.vision.demo.CameraSource$FrameProcessingRunnable
  com.google.mlkit.vision.demo.CameraSource$SizePair
-com/google/mlkit/vision/demo/java/ChooserActivity.java
- com.google.mlkit.vision.demo.java.ChooserActivity
- com.google.mlkit.vision.demo.java.ChooserActivity$MyArrayAdapter
+com/google/mlkit/vision/demo/preference/FaceDetectionUtils.java
+ com.google.mlkit.vision.demo.preference.FaceDetectionUtils
 com/google/mlkit/vision/demo/preference/SettingsActivity.java
  com.google.mlkit.vision.demo.preference.SettingsActivity
  com.google.mlkit.vision.demo.preference.SettingsActivity$LaunchSource
@@ -56,5 +55,3 @@ com/google/mlkit/vision/demo/CameraSourcePreview.java
 com/google/mlkit/vision/demo/java/VisionProcessorBase.java
  com.google.mlkit.vision.demo.java.VisionProcessorBase
  com.google.mlkit.vision.demo.java.VisionProcessorBase$1
-com/google/mlkit/vision/demo/preference/FaceDetectionUtils.java
- com.google.mlkit.vision.demo.preference.FaceDetectionUtils
