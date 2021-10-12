@@ -20,8 +20,10 @@ com/google/mlkit/vision/demo/CameraImageGraphic.java
  com.google.mlkit.vision.demo.CameraImageGraphic
 com/google/mlkit/vision/demo/InferenceInfoGraphic.java
  com.google.mlkit.vision.demo.InferenceInfoGraphic
-com/google/mlkit/vision/demo/preference/CameraXSourceDemoPreferenceFragment.java
- com.google.mlkit.vision.demo.preference.CameraXSourceDemoPreferenceFragment
+com/google/mlkit/vision/demo/CameraSourcePreview.java
+ com.google.mlkit.vision.demo.CameraSourcePreview
+ com.google.mlkit.vision.demo.CameraSourcePreview$1
+ com.google.mlkit.vision.demo.CameraSourcePreview$SurfaceCallback
 com/google/mlkit/vision/demo/GraphicOverlay.java
  com.google.mlkit.vision.demo.GraphicOverlay
  com.google.mlkit.vision.demo.GraphicOverlay$Graphic
@@ -38,7 +40,3 @@ com/google/mlkit/vision/demo/CameraXViewModel.java
  com.google.mlkit.vision.demo.CameraXViewModel
 com/google/mlkit/vision/demo/ScopedExecutor.java
  com.google.mlkit.vision.demo.ScopedExecutor
-com/google/mlkit/vision/demo/CameraSourcePreview.java
- com.google.mlkit.vision.demo.CameraSourcePreview
- com.google.mlkit.vision.demo.CameraSourcePreview$1
- com.google.mlkit.vision.demo.CameraSourcePreview$SurfaceCallback
