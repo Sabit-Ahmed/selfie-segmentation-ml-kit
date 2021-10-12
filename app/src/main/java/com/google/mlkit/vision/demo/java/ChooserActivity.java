@@ -51,27 +51,13 @@ public final class ChooserActivity extends AppCompatActivity
   private static final int PERMISSION_REQUESTS = 1;
 
   private static final Class<?>[] CLASSES =
-      VERSION.SDK_INT < VERSION_CODES.LOLLIPOP
-          ? new Class<?>[] {
-            LivePreviewActivity.class, StillImageActivity.class,
-          }
-          : new Class<?>[] {
-            LivePreviewActivity.class,
-            StillImageActivity.class,
+      new Class<?>[] {
             CameraXLivePreviewActivity.class,
-            CameraXSourceDemoActivity.class,
           };
 
   private static final int[] DESCRIPTION_IDS =
-      VERSION.SDK_INT < VERSION_CODES.LOLLIPOP
-          ? new int[] {
-            R.string.desc_camera_source_activity, R.string.desc_still_image_activity,
-          }
-          : new int[] {
+      new int[] {
             R.string.desc_camera_source_activity,
-            R.string.desc_still_image_activity,
-            R.string.desc_camerax_live_preview_activity,
-            R.string.desc_cameraxsource_demo_activity,
           };
 
   @Override
