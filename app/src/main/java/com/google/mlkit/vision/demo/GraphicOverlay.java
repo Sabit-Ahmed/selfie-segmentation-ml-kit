@@ -96,15 +96,6 @@ public class GraphicOverlay extends View {
       return imagePixel * overlay.scaleFactor;
     }
 
-    /** Returns the application context of the app. */
-    public Context getApplicationContext() {
-      return overlay.getContext().getApplicationContext();
-    }
-
-    public boolean isImageFlipped() {
-      return overlay.isImageFlipped;
-    }
-
     /**
      * Adjusts the x coordinate from the image's coordinate system to the view coordinate system.
      */
@@ -155,14 +146,6 @@ public class GraphicOverlay extends View {
     synchronized (lock) {
       graphics.add(graphic);
     }
-  }
-
-  /** Removes a graphic from the overlay. */
-  public void remove(Graphic graphic) {
-    synchronized (lock) {
-      graphics.remove(graphic);
-    }
-    postInvalidate();
   }
 
   /**

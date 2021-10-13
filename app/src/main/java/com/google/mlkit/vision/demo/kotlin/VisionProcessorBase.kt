@@ -32,7 +32,6 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.android.gms.tasks.Tasks
-import com.google.android.odml.image.BitmapMlImageBuilder
 import com.google.android.odml.image.ByteBufferMlImageBuilder
 import com.google.android.odml.image.MediaMlImageBuilder
 import com.google.android.odml.image.MlImage
@@ -62,7 +61,6 @@ import java.util.TimerTask
 abstract class VisionProcessorBase<T>(context: Context) : VisionImageProcessor {
 
   companion object {
-    const val MANUAL_TESTING_LOG = "LogTagForTest"
     private const val TAG = "VisionProcessorBase"
   }
 
@@ -104,32 +102,6 @@ abstract class VisionProcessorBase<T>(context: Context) : VisionImageProcessor {
       },
       0,
       1000
-    )
-  }
-
-  // -----------------Code for processing single still image----------------------------------------
-  override fun processBitmap(bitmap: Bitmap?, graphicOverlay: GraphicOverlay) {
-    val frameStartMs = SystemClock.elapsedRealtime()
-
-    if (isMlImageEnabled(graphicOverlay.context)) {
-      val mlImage = BitmapMlImageBuilder(bitmap!!).build()
-      requestDetectInImage(
-        mlImage,
-        graphicOverlay,
-        /* originalCameraImage= */ null,
-        /* shouldShowFps= */ false,
-        frameStartMs
-      )
-      mlImage.close()
-      return
-    }
-
-    requestDetectInImage(
-      InputImage.fromBitmap(bitmap!!, 0),
-      graphicOverlay,
-      /* originalCameraImage= */ null,
-      /* shouldShowFps= */ false,
-      frameStartMs
     )
   }
 

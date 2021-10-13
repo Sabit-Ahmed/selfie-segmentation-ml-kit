@@ -53,12 +53,6 @@ public class InferenceInfoGraphic extends GraphicOverlay.Graphic {
     postInvalidate();
   }
 
-  /** Creates an {@link InferenceInfoGraphic} to only display image size. */
-  public InferenceInfoGraphic(GraphicOverlay overlay) {
-    this(overlay, 0, 0, null);
-    showLatencyInfo = false;
-  }
-
   @Override
   public synchronized void draw(Canvas canvas) {
     float x = TEXT_SIZE * 0.5f;
