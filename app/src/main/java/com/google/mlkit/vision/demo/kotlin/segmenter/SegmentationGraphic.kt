@@ -58,12 +58,25 @@ class SegmentationGraphic(overlay: GraphicOverlay, segmentationMask: Segmentatio
 
     /** Converts byteBuffer floats to ColorInt array that can be used as a mask.  */
     @ColorInt
-    private fun maskColorsFromByteBuffer(byteBuffer: ByteBuffer): IntArray {
+    private fun maskColorsFromByteBuffer(byteBuffer: ByteBuffer, getPoints: Boolean = true): IntArray {
         @ColorInt val colors =
             IntArray(maskWidth * maskHeight)
         var totalConfidence: Float = 0f
+        var topY: Int = (maskHeight * maskHeight) + 100
+        var bottomY: Int = -1
+        var pixelDifference: Int = 0
+
         for (i in 0 until maskWidth * maskHeight) {
             val byteBufferValue = byteBuffer.float
+            if (getPoints && byteBufferValue == 1f) {
+                if (i < topY) {
+                    topY = i
+                }
+                if (i > bottomY) {
+                    bottomY = i
+                }
+
+            }
             totalConfidence += byteBufferValue
             val backgroundLikelihood = 1 - byteBufferValue
             if (backgroundLikelihood > 0.9) {
@@ -80,47 +93,12 @@ class SegmentationGraphic(overlay: GraphicOverlay, segmentationMask: Segmentatio
         if (totalConfidence < 15000) {
             Log.d("confidence", "$totalConfidence:: Please come forward")
         }
+        pixelDifference = bottomY/maskWidth - topY/maskWidth
+        Log.d("confidence", "Top Y:: ${topY/maskWidth} and Bottom Y:: ${bottomY/maskWidth}")
+        Log.d("confidence", "Pixel Difference:: $pixelDifference")
 
         return colors
     }
-
-//    fun checkBackground(): Float {
-//        var totalConfidence: Float = 0f
-//
-//        for (y in 0..maskHeight) {
-//            for (x in 0..maskWidth) {
-//                // Gets the confidence of the (x,y) pixel in the mask being in the foreground
-//                try {
-//                    val foregroundConfidence = mask.float
-//                    totalConfidence += foregroundConfidence
-////                    Log.d("Confidence", "${mask.get(y * maskWidth + x)}")
-//                } catch (e: BufferUnderflowException) {
-//                    Log.d("UnderFlowException", "$e")
-//                }
-//            }
-//        }
-//        Log.d("ConfidenceRewind", "=================== Rewind ======================")
-//        mask.rewind()
-////        Log.d("maskSize", "$maskWidth ,  $maskHeight")
-//        return totalConfidence
-//    }
-//
-//    fun checkBgByAlphaValue(bitmap: Bitmap): Float {
-//        var sumOfAlpha: Float = 0f
-//
-//        for (y in 0..maskHeight-1) {
-//            for (x in 0..maskWidth-1) {
-//                // Gets the confidence of the (x,y) pixel in the mask being in the foreground
-//                try {
-//                    sumOfAlpha += (1 - bitmap.getColor(x, y).alpha())
-//                } catch (e: BufferUnderflowException) {
-//                    Log.d("UnderFlowException", "$e")
-//                }
-//            }
-//        }
-//
-//        return sumOfAlpha
-//    }
 
     init {
         mask = segmentationMask.buffer
