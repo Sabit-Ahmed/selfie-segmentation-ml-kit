@@ -24,7 +24,6 @@ import android.util.Log
 import androidx.annotation.ColorInt
 import com.google.mlkit.vision.demo.GraphicOverlay
 import com.google.mlkit.vision.segmentation.SegmentationMask
-import java.nio.BufferUnderflowException
 import java.nio.ByteBuffer
 
 /** Draw the mask from SegmentationResult in preview.  */
@@ -61,10 +60,9 @@ class SegmentationGraphic(overlay: GraphicOverlay, segmentationMask: Segmentatio
     private fun maskColorsFromByteBuffer(byteBuffer: ByteBuffer, getPoints: Boolean = true): IntArray {
         @ColorInt val colors =
             IntArray(maskWidth * maskHeight)
-        var totalConfidence: Float = 0f
+        var totalConfidence = 0f
         var topY: Int = (maskHeight * maskHeight) + 100
         var bottomY: Int = -1
-        var pixelDifference: Int = 0
 
         for (i in 0 until maskWidth * maskHeight) {
             val byteBufferValue = byteBuffer.float
@@ -93,7 +91,7 @@ class SegmentationGraphic(overlay: GraphicOverlay, segmentationMask: Segmentatio
         if (totalConfidence < 15000) {
             Log.d("confidence", "$totalConfidence:: Please come forward")
         }
-        pixelDifference = bottomY/maskWidth - topY/maskWidth
+        val pixelDifference: Int = bottomY/maskWidth - topY/maskWidth
         Log.d("confidence", "Top Y:: ${topY/maskWidth} and Bottom Y:: ${bottomY/maskWidth}")
         Log.d("confidence", "Pixel Difference:: $pixelDifference")
 
