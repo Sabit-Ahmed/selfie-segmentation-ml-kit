@@ -21,6 +21,7 @@ import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.demo.GraphicOverlay
+import com.google.mlkit.vision.demo.kotlin.AudioPlayer
 import com.google.mlkit.vision.demo.kotlin.VisionProcessorBase
 import com.google.mlkit.vision.demo.preference.PreferenceUtils
 import com.google.mlkit.vision.segmentation.Segmentation
@@ -32,15 +33,18 @@ import com.google.mlkit.vision.segmentation.selfie.SelfieSegmenterOptions
 class SegmenterProcessor :
   VisionProcessorBase<SegmentationMask> {
   private val segmenter: Segmenter
+  lateinit var myAudioPlayer: AudioPlayer
 
-  constructor(context: Context) : this(context, /* isStreamMode= */ true)
+  constructor(context: Context, audioPlayer: AudioPlayer) : this(context, /* isStreamMode= */ true, audioPlayer)
 
   constructor(
     context: Context,
-    isStreamMode: Boolean
+    isStreamMode: Boolean,
+    audioPlayer: AudioPlayer
   ) : super(
     context
   ) {
+    myAudioPlayer = audioPlayer
     val optionsBuilder = SelfieSegmenterOptions.Builder()
     optionsBuilder.setDetectorMode(
       if(isStreamMode) SelfieSegmenterOptions.STREAM_MODE
@@ -49,7 +53,6 @@ class SegmenterProcessor :
     if (PreferenceUtils.shouldSegmentationEnableRawSizeMask(context)) {
       optionsBuilder.enableRawSizeMask()
     }
-
     val options = optionsBuilder.build()
     segmenter = Segmentation.getClient(options)
     Log.d(TAG, "SegmenterProcessor created with option: " + options)
@@ -61,12 +64,13 @@ class SegmenterProcessor :
 
   override fun onSuccess(
     segmentationMask: SegmentationMask,
-    graphicOverlay: GraphicOverlay
+    graphicOverlay: GraphicOverlay,
   ) {
     graphicOverlay.add(
       SegmentationGraphic(
         graphicOverlay,
-        segmentationMask
+        segmentationMask,
+        myAudioPlayer
       )
     )
   }
