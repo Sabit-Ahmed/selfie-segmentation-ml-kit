@@ -43,6 +43,7 @@ class SegmentationGraphic(
     private val isRawSizeMaskEnabled: Boolean
     private val scaleX: Float
     private val scaleY: Float
+    private val maxWrongFrameCount = 3
 
     /** Draws the segmented background on the supplied canvas.  */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -103,8 +104,7 @@ class SegmentationGraphic(
 
 //        Log.d("confidence", "confidence:: $totalConfidence")
         if (totalConfidence < 15000) {
-            audioPlayer.play(R.raw.please_come_forward)
-            Log.d("confidence", "$totalConfidence:: Please come forward")
+            audioPlayer.play()
         }
         val pixelDifference: Int = bottomY / maskWidth - topY / maskWidth
         Log.d("confidence", "Top Y:: ${topY / maskWidth} and Bottom Y:: ${bottomY / maskWidth}")
