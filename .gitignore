@@ -2,6 +2,11 @@
 # Created by https://www.toptal.com/developers/gitignore/api/androidstudio,kotlin
 # Edit at https://www.toptal.com/developers/gitignore?templates=androidstudio,kotlin
 .idea/
+.idea
+build
+*/build
+
+*/build/*
 ### Kotlin ###
 # Compiled class file
 *.class
