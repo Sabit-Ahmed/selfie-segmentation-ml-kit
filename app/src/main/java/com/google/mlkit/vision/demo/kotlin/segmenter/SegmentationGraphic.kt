@@ -20,14 +20,22 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Matrix
+import android.os.Build
 import android.util.Log
 import androidx.annotation.ColorInt
+import androidx.annotation.RequiresApi
 import com.google.mlkit.vision.demo.GraphicOverlay
+import com.google.mlkit.vision.demo.R
+import com.google.mlkit.vision.demo.kotlin.AudioPlayer
 import com.google.mlkit.vision.segmentation.SegmentationMask
 import java.nio.ByteBuffer
 
 /** Draw the mask from SegmentationResult in preview.  */
-class SegmentationGraphic(overlay: GraphicOverlay, segmentationMask: SegmentationMask) :
+class SegmentationGraphic(
+    overlay: GraphicOverlay,
+    segmentationMask: SegmentationMask,
+    private val audioPlayer: AudioPlayer
+) :
     GraphicOverlay.Graphic(overlay) {
     private val mask: ByteBuffer
     private val maskWidth: Int
@@ -35,8 +43,10 @@ class SegmentationGraphic(overlay: GraphicOverlay, segmentationMask: Segmentatio
     private val isRawSizeMaskEnabled: Boolean
     private val scaleX: Float
     private val scaleY: Float
+    private val maxWrongFrameCount = 3
 
     /** Draws the segmented background on the supplied canvas.  */
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun draw(canvas: Canvas) {
         val bitmap = Bitmap.createBitmap(
             maskColorsFromByteBuffer(mask), maskWidth, maskHeight, Bitmap.Config.ARGB_8888
@@ -56,8 +66,12 @@ class SegmentationGraphic(overlay: GraphicOverlay, segmentationMask: Segmentatio
     }
 
     /** Converts byteBuffer floats to ColorInt array that can be used as a mask.  */
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @ColorInt
-    private fun maskColorsFromByteBuffer(byteBuffer: ByteBuffer, getPoints: Boolean = true): IntArray {
+    private fun maskColorsFromByteBuffer(
+        byteBuffer: ByteBuffer,
+        getPoints: Boolean = true
+    ): IntArray {
         @ColorInt val colors =
             IntArray(maskWidth * maskHeight)
         var totalConfidence = 0f
@@ -87,12 +101,13 @@ class SegmentationGraphic(overlay: GraphicOverlay, segmentationMask: Segmentatio
                 colors[i] = Color.argb(alpha, 64, 0, 255)
             }
         }
+
 //        Log.d("confidence", "confidence:: $totalConfidence")
         if (totalConfidence < 15000) {
-            Log.d("confidence", "$totalConfidence:: Please come forward")
+            audioPlayer.play()
         }
-        val pixelDifference: Int = bottomY/maskWidth - topY/maskWidth
-        Log.d("confidence", "Top Y:: ${topY/maskWidth} and Bottom Y:: ${bottomY/maskWidth}")
+        val pixelDifference: Int = bottomY / maskWidth - topY / maskWidth
+        Log.d("confidence", "Top Y:: ${topY / maskWidth} and Bottom Y:: ${bottomY / maskWidth}")
         Log.d("confidence", "Pixel Difference:: $pixelDifference")
 
         return colors

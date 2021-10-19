@@ -4,8 +4,6 @@ com/google/mlkit/vision/demo/preference/LivePreviewPreferenceFragment.java
  com.google.mlkit.vision.demo.preference.LivePreviewPreferenceFragment
 com/google/mlkit/vision/demo/preference/PreferenceUtils.java
  com.google.mlkit.vision.demo.preference.PreferenceUtils
-com/google/mlkit/vision/demo/TemperatureMonitor.java
- com.google.mlkit.vision.demo.TemperatureMonitor
 com/google/mlkit/vision/demo/BitmapUtils.java
  com.google.mlkit.vision.demo.BitmapUtils
 com/google/mlkit/vision/demo/BuildConfig.java

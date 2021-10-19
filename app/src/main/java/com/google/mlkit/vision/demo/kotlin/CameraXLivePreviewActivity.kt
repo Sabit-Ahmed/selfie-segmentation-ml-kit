@@ -74,10 +74,12 @@ class CameraXLivePreviewActivity :
   private var selectedModel = SELFIE_SEGMENTATION
   private var lensFacing = CameraSelector.LENS_FACING_BACK
   private var cameraSelector: CameraSelector? = null
+  lateinit var audioPlayer: AudioPlayer
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     Log.d(TAG, "onCreate")
+    audioPlayer = AudioPlayer(context = this)
     if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
       Toast.makeText(
           applicationContext,
@@ -236,7 +238,7 @@ class CameraXLivePreviewActivity :
     imageProcessor =
       try {
         when (selectedModel) {
-          SELFIE_SEGMENTATION -> SegmenterProcessor(this)
+          SELFIE_SEGMENTATION -> SegmenterProcessor(this, audioPlayer)
           else -> throw IllegalStateException("Invalid model name")
         }
       } catch (e: Exception) {
