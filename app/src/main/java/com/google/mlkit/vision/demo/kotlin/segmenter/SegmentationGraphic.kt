@@ -25,7 +25,6 @@ import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import com.google.mlkit.vision.demo.GraphicOverlay
-import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.kotlin.AudioPlayer
 import com.google.mlkit.vision.segmentation.SegmentationMask
 import java.nio.ByteBuffer
@@ -43,7 +42,6 @@ class SegmentationGraphic(
     private val isRawSizeMaskEnabled: Boolean
     private val scaleX: Float
     private val scaleY: Float
-    private val maxWrongFrameCount = 3
 
     /** Draws the segmented background on the supplied canvas.  */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
