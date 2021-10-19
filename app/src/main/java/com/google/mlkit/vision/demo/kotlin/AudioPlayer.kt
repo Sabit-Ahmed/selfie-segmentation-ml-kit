@@ -15,7 +15,7 @@ class AudioPlayer(
 
     fun play() {
         val timestamp = System.currentTimeMillis().toInt()
-        if (timestamp - lastTimePlayed >= 4000) {
+        if (timestamp - lastTimePlayed >= 3000) {
             Log.d("lastTimePlay", "${timestamp - lastTimePlayed}")
             player.start()
             player.setOnCompletionListener {this.context
