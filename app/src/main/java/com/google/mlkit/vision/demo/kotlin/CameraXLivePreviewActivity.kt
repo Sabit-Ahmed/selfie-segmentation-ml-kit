@@ -226,7 +226,7 @@ class CameraXLivePreviewActivity :
                 Log.e(TAG, "Can not create image processor: $selectedModel", e)
                 Toast.makeText(
                     applicationContext,
-                    "Can not create image processor:  " + e.localizedMessage,
+                    "Can not create image processor: " + e.localizedMessage,
                     Toast.LENGTH_LONG
                 )
                     .show()
