@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/sabit/Desktop/Sabit/Segmentation/Android/EMMA ROM/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rHK/values-zh-rHK.xml",
+            "outputFile": "/Users/sabit/Desktop/Sabit/Segmentation/Android/EMMA_ROM/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rHK/values-zh-rHK.xml",
             "map": [
                 {
                     "source": "/Users/sabit/.gradle/caches/transforms-2/files-2.1/eb3695de7646208bc64e4426ddd573a3/jetified-play-services-base-17.6.0/res/values-zh-rHK/values.xml",

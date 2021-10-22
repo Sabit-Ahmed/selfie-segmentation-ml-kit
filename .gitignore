@@ -3,8 +3,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=androidstudio,kotlin
 .idea/
 .idea
-**/build/*
-
+app/build
+build
 ### Kotlin ###
 # Compiled class file
 *.class

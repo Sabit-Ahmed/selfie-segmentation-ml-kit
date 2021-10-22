@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/sabit/Desktop/Sabit/Segmentation/Android/EMMA ROM/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ta/values-ta.xml",
+            "outputFile": "/Users/sabit/Desktop/Sabit/Segmentation/Android/EMMA_ROM/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ta/values-ta.xml",
             "map": [
                 {
                     "source": "/Users/sabit/.gradle/caches/transforms-2/files-2.1/9ce39da31d83914ee9b08fa3e90e05b5/core-1.3.1/res/values-ta/values-ta.xml",

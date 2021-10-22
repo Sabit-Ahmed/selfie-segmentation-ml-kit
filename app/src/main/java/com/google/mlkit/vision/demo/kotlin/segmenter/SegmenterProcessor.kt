@@ -55,7 +55,7 @@ class SegmenterProcessor :
     }
     val options = optionsBuilder.build()
     segmenter = Segmentation.getClient(options)
-    Log.d(TAG, "SegmenterProcessor created with option: " + options)
+    Log.d(TAG, "SegmenterProcessor created with option: $options")
   }
 
   override fun detectInImage(image: InputImage): Task<SegmentationMask> {
