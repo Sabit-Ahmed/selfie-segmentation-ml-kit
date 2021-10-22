@@ -33,7 +33,7 @@ import com.google.mlkit.vision.segmentation.selfie.SelfieSegmenterOptions
 class SegmenterProcessor :
   VisionProcessorBase<SegmentationMask> {
   private val segmenter: Segmenter
-  lateinit var myAudioPlayer: AudioPlayer
+  var myAudioPlayer: AudioPlayer
 
   constructor(context: Context, audioPlayer: AudioPlayer) : this(context, /* isStreamMode= */ true, audioPlayer)
 
