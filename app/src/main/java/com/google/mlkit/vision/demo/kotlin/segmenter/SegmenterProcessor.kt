@@ -33,7 +33,7 @@ import com.google.mlkit.vision.segmentation.selfie.SelfieSegmenterOptions
 class SegmenterProcessor :
   VisionProcessorBase<SegmentationMask> {
   private val segmenter: Segmenter
-  lateinit var myAudioPlayer: AudioPlayer
+  var myAudioPlayer: AudioPlayer
 
   constructor(context: Context, audioPlayer: AudioPlayer) : this(context, /* isStreamMode= */ true, audioPlayer)
 
@@ -55,7 +55,7 @@ class SegmenterProcessor :
     }
     val options = optionsBuilder.build()
     segmenter = Segmentation.getClient(options)
-    Log.d(TAG, "SegmenterProcessor created with option: " + options)
+    Log.d(TAG, "SegmenterProcessor created with option: $options")
   }
 
   override fun detectInImage(image: InputImage): Task<SegmentationMask> {
