@@ -8,5 +8,5 @@ import java.nio.ByteBuffer
 
 interface IROMModel{
     fun getModelMask(modelMask: SegmentationMask) : List<MaskData>
-    fun getMaskData(modelHeight:Int, modelWeight:Int, modelMask:ByteBuffer) : List<MaskDetails>
+    fun getMaskData(maskHeight:Int, maskWidth:Int, mask:ByteBuffer) : List<MaskDetails>
 }

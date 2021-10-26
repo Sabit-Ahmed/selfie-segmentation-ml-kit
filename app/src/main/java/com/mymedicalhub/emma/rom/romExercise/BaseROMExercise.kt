@@ -7,7 +7,7 @@ import com.mymedicalhub.emma.rom.romExercise.data.Point
 import com.google.mlkit.vision.segmentation.SegmentationMask
 import java.nio.ByteBuffer
 
-class BaseROMExercise() : IROMModel {
+class BaseROMExercise: IROMModel {
 
     override fun getModelMask(modelMask: SegmentationMask): List<MaskData> {
         val mask = modelMask.buffer
