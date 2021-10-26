@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo.kotlin
+package com.mymedicalhub.emma.rom.romExercise
 
 import android.content.Context
 import android.content.Intent
@@ -37,14 +37,15 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
-import com.google.mlkit.vision.demo.CameraXViewModel
-import com.google.mlkit.vision.demo.GraphicOverlay
-import com.google.mlkit.vision.demo.R
-import com.google.mlkit.vision.demo.VisionImageProcessor
-import com.google.mlkit.vision.demo.kotlin.segmenter.SegmenterProcessor
-import com.google.mlkit.vision.demo.preference.PreferenceUtils
-import com.google.mlkit.vision.demo.preference.SettingsActivity
-import com.google.mlkit.vision.demo.preference.SettingsActivity.LaunchSource
+import com.mymedicalhub.emma.rom.maskModel.CameraXViewModel
+import com.mymedicalhub.emma.rom.maskModel.GraphicOverlay
+import com.mymedicalhub.emma.rom.R
+import com.mymedicalhub.emma.rom.maskModel.VisionImageProcessor
+import com.mymedicalhub.emma.rom.maskModel.kotlin.AudioPlayer
+import com.mymedicalhub.emma.rom.maskModel.kotlin.segmenter.SegmenterProcessor
+import com.mymedicalhub.emma.rom.maskModel.preference.PreferenceUtils
+import com.mymedicalhub.emma.rom.maskModel.preference.SettingsActivity
+import com.mymedicalhub.emma.rom.maskModel.preference.SettingsActivity.LaunchSource
 import java.util.*
 
 /** Live preview demo app for ML Kit APIs using CameraX. */
