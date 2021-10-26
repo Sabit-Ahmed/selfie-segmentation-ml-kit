@@ -1,6 +1,6 @@
 package com.google.mlkit.vision.demo.romExercise
 
-import java.lang.Math.pow
+import com.google.mlkit.vision.demo.romExercise.data.Point
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -17,3 +17,5 @@ class ROMUtils {
 
     }
 }
+
+

@@ -24,6 +24,8 @@ import com.google.mlkit.vision.demo.GraphicOverlay
 import com.google.mlkit.vision.demo.kotlin.AudioPlayer
 import com.google.mlkit.vision.demo.kotlin.VisionProcessorBase
 import com.google.mlkit.vision.demo.preference.PreferenceUtils
+import com.google.mlkit.vision.demo.romExercise.BaseROMExercise
+import com.google.mlkit.vision.mediapipe.segmentation.SegmentationMaskHolder
 import com.google.mlkit.vision.segmentation.Segmentation
 import com.google.mlkit.vision.segmentation.SegmentationMask
 import com.google.mlkit.vision.segmentation.Segmenter
@@ -34,6 +36,7 @@ class SegmenterProcessor :
   VisionProcessorBase<SegmentationMask> {
   private val segmenter: Segmenter
   var myAudioPlayer: AudioPlayer
+  var mask = BaseROMExercise()
 
   constructor(context: Context, audioPlayer: AudioPlayer) : this(context, /* isStreamMode= */ true, audioPlayer)
 
@@ -53,6 +56,7 @@ class SegmenterProcessor :
     if (PreferenceUtils.shouldSegmentationEnableRawSizeMask(context)) {
       optionsBuilder.enableRawSizeMask()
     }
+
     val options = optionsBuilder.build()
     segmenter = Segmentation.getClient(options)
     Log.d(TAG, "SegmenterProcessor created with option: $options")
@@ -66,13 +70,16 @@ class SegmenterProcessor :
     segmentationMask: SegmentationMask,
     graphicOverlay: GraphicOverlay,
   ) {
-    graphicOverlay.add(
-      SegmentationGraphic(
-        graphicOverlay,
-        segmentationMask,
-        myAudioPlayer
-      )
-    )
+//    graphicOverlay.add(
+//      SegmentationGraphic(
+//        graphicOverlay,
+//        segmentationMask,
+//        myAudioPlayer
+//      )
+//    )
+//    mask.getModelMask(segmentationMask)
+    mask.getMaskData(segmentationMask.height,segmentationMask.width,segmentationMask.buffer)
+    Log.d("maskQuestion","mask Value1: ${segmentationMask.buffer}")
   }
 
   override fun onFailure(e: Exception) {
