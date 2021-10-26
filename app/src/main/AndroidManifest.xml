@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.mlkit.vision.demo"
+    package="com.mymedicalhub.emma.rom"
     android:installLocation="auto">
     <!--
  CameraX libraries require minSdkVersion 21, while this quickstart app
@@ -39,11 +39,11 @@
           your app is installed.
         -->
         <meta-data
-            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:name="com.mymedicalhub.emma.rom.DEPENDENCIES"
             android:value="barcode,face,ocr,ica,custom_ica" />
 
         <activity
-            android:name=".kotlin.CameraXLivePreviewActivity"
+            android:name="com.mymedicalhub.emma.rom.romExercise.CameraXLivePreviewActivity"
             android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".preference.SettingsActivity"
+            android:name=".maskModel.preference.SettingsActivity"
             android:exported="false" />
     </application>
 
