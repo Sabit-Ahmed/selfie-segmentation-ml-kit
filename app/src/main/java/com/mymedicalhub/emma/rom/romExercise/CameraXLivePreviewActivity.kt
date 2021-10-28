@@ -19,6 +19,8 @@ package com.mymedicalhub.emma.rom.romExercise
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -42,10 +44,16 @@ import com.mymedicalhub.emma.rom.maskModel.GraphicOverlay
 import com.mymedicalhub.emma.rom.R
 import com.mymedicalhub.emma.rom.maskModel.VisionImageProcessor
 import com.mymedicalhub.emma.rom.maskModel.kotlin.AudioPlayer
-import com.mymedicalhub.emma.rom.maskModel.kotlin.segmenter.SegmenterProcessor
+import com.mymedicalhub.emma.rom.maskModel.kotlin.segmenter.SegmentProcessor
 import com.mymedicalhub.emma.rom.maskModel.preference.PreferenceUtils
 import com.mymedicalhub.emma.rom.maskModel.preference.SettingsActivity
 import com.mymedicalhub.emma.rom.maskModel.preference.SettingsActivity.LaunchSource
+import com.mymedicalhub.emma.rom.poseModel.PoseEstimationProcessor
+import com.mymedicalhub.emma.rom.poseModel.core.Draw
+import com.mymedicalhub.emma.rom.poseModel.data.Device
+import com.mymedicalhub.emma.rom.poseModel.ml.MoveNet
+import com.mymedicalhub.emma.rom.poseModel.ml.PoseDetector
+import com.mymedicalhub.emma.rom.romExercise.data.Point
 import java.util.*
 
 /** Live preview demo app for ML Kit APIs using CameraX. */
@@ -67,10 +75,30 @@ class CameraXLivePreviewActivity :
     private var lensFacing = CameraSelector.LENS_FACING_BACK
     private var cameraSelector: CameraSelector? = null
     private lateinit var audioPlayer: AudioPlayer
+    private var countFrame: Int = 0
+    private var poseDetector: PoseDetector? = null
+    private var device = Device.CPU
+
+
+
+    fun createPoseEstimator(context: Context) {
+//        val output = input.bitmapInternal!!.copy(input.bitmapInternal!!.config, true)//copy(Bitmap.Config.ARGB_8888, true)
+        val canvas = Canvas()
+        poseDetector?.close()
+        poseDetector = null
+        poseDetector = MoveNet.create(context, device)
+        Log.d("poseModel", "Done Pose Model")
+        val draw = Draw(canvas, Color.WHITE, 2f)
+        draw.writeText(
+            "Hello pose",
+            Point(500f, 500f),
+            Color.rgb(19, 93, 148),//blue
+            65f
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate")
         audioPlayer = AudioPlayer(context = this)
         if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
             Toast.makeText(
@@ -105,8 +133,11 @@ class CameraXLivePreviewActivity :
                 this,
                 { provider: ProcessCameraProvider? ->
                     cameraProvider = provider
+
                     if (allPermissionsGranted()) {
+
                         bindAllCameraUseCases()
+
                     }
                 }
             )
@@ -180,6 +211,7 @@ class CameraXLivePreviewActivity :
             cameraProvider!!.unbindAll()
             bindPreviewUseCase()
             bindAnalysisUseCase()
+
         }
     }
 
@@ -217,22 +249,10 @@ class CameraXLivePreviewActivity :
         if (imageProcessor != null) {
             imageProcessor!!.stop()
         }
-        imageProcessor =
-            try {
-                when (selectedModel) {
-                    SELFIE_SEGMENTATION -> SegmenterProcessor(this, audioPlayer)
-                    else -> throw IllegalStateException("Invalid model name")
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Can not create image processor: $selectedModel", e)
-                Toast.makeText(
-                    applicationContext,
-                    "Can not create image processor: " + e.localizedMessage,
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-                return
-            }
+        if (selectedModel == SELFIE_SEGMENTATION) {
+            imageProcessor = SegmentProcessor(this, audioPlayer)
+        }
+
 
         val builder = ImageAnalysis.Builder()
         val targetResolution = PreferenceUtils.getCameraXTargetResolution(this, lensFacing)
@@ -247,33 +267,35 @@ class CameraXLivePreviewActivity :
             // imageProcessor.processImageProxy will use another thread to run the detection underneath,
             // thus we can just runs the analyzer itself on main thread.
             ContextCompat.getMainExecutor(this),
-          { imageProxy: ImageProxy ->
-              if (needUpdateGraphicOverlayImageSourceInfo) {
-                  val isImageFlipped = lensFacing == CameraSelector.LENS_FACING_FRONT
-                  val rotationDegrees = imageProxy.imageInfo.rotationDegrees
-                  if (rotationDegrees == 0 || rotationDegrees == 180) {
-                      graphicOverlay!!.setImageSourceInfo(
-                          imageProxy.width,
-                          imageProxy.height,
-                          isImageFlipped
-                      )
-                  } else {
-                      graphicOverlay!!.setImageSourceInfo(
-                          imageProxy.height,
-                          imageProxy.width,
-                          isImageFlipped
-                      )
-                  }
-                  needUpdateGraphicOverlayImageSourceInfo = false
-              }
-              try {
-                  imageProcessor!!.processImageProxy(imageProxy, graphicOverlay)
-              } catch (e: MlKitException) {
-                  Log.e(TAG, "Failed to process image. Error: " + e.localizedMessage)
-                  Toast.makeText(applicationContext, e.localizedMessage, Toast.LENGTH_SHORT)
-                      .show()
-              }
-          }
+            { imageProxy: ImageProxy ->
+                if (needUpdateGraphicOverlayImageSourceInfo) {
+                    val isImageFlipped = lensFacing == CameraSelector.LENS_FACING_FRONT
+                    val rotationDegrees = imageProxy.imageInfo.rotationDegrees
+                    if (rotationDegrees == 0 || rotationDegrees == 180) {
+                        graphicOverlay!!.setImageSourceInfo(
+                            imageProxy.width,
+                            imageProxy.height,
+                            isImageFlipped
+                        )
+                    } else {
+                        graphicOverlay!!.setImageSourceInfo(
+                            imageProxy.height,
+                            imageProxy.width,
+                            isImageFlipped
+                        )
+                    }
+                    needUpdateGraphicOverlayImageSourceInfo = false
+                }
+                try {
+                    imageProcessor!!.processImageProxy(imageProxy, graphicOverlay)
+                    PoseEstimationProcessor().posStart(imageProxy)
+
+                } catch (e: MlKitException) {
+                    Log.e(TAG, "Failed to process image. Error: " + e.localizedMessage)
+                    Toast.makeText(applicationContext, e.localizedMessage, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         )
         cameraProvider!!.bindToLifecycle(/* lifecycleOwner= */ this,
             cameraSelector!!,
