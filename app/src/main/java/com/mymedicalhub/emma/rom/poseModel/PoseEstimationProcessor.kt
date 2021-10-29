@@ -5,7 +5,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.camera.core.ImageProxy
 import com.mymedicalhub.emma.rom.maskModel.BitmapUtils
 import com.mymedicalhub.emma.rom.poseModel.data.Device
@@ -44,6 +46,7 @@ class PoseEstimationProcessor {
             }
         }
     }
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun createPoseEstimator(context: Context) {
 //        val output = input.bitmapInternal!!.copy(input.bitmapInternal!!.config, true)//copy(Bitmap.Config.ARGB_8888, true)
         val canvas = Canvas()
